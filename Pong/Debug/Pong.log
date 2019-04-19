@@ -1,0 +1,9 @@
+﻿  PongObject.cpp
+  pong.cpp
+c:\users\zamaroney7986\onedrive - florida gulf coast university\spring 2019\cop 2001\projects - labs\pong\pong.cpp(78): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\zamaroney7986\onedrive - florida gulf coast university\spring 2019\cop 2001\projects - labs\pong\pong.cpp(153): error C2065: 'ball': undeclared identifier
+c:\users\zamaroney7986\onedrive - florida gulf coast university\spring 2019\cop 2001\projects - labs\pong\pong.cpp(153): error C2660: 'SetPixel': function does not take 3 arguments
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\wingdi.h(4571): note: see declaration of 'SetPixel'
+c:\users\zamaroney7986\onedrive - florida gulf coast university\spring 2019\cop 2001\projects - labs\pong\pong.cpp(357): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\zamaroney7986\onedrive - florida gulf coast university\spring 2019\cop 2001\projects - labs\pong\pong.cpp(360): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
