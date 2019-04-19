@@ -15,7 +15,7 @@ class PongObject {
 public:
 	PongObject();
 
-	PongObject(int heightIn, int widthIn, Position currentIn, Position previousIn, Position velocityIn, bool ballIndicatorIn);
+	PongObject(int heightIn, int widthIn, Position currentIn, Position previousIn, Position velocityIn, bool ballIndicatorIn, bool dirtyIn);
 
 	Position getCurrent();
 	Position getPrevious();
@@ -48,6 +48,10 @@ public:
 
 	bool intersects(PongObject* other);
 
+	bool isDirty();
+
+	void setDirty(bool dirty);
+
 private:
 	Position current;
 	Position previous;
@@ -57,6 +61,8 @@ private:
 	int width;
 
 	bool ballIndicator;
+
+	bool dirty;
 
 }; // end class PongObject
 

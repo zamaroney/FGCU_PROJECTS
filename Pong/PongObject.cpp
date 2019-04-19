@@ -17,16 +17,18 @@ PongObject::PongObject() {
 	previous = { 0.0f, 0.0f };
 	velocity = { 0.0f, 0.0f };
 	ballIndicator = false;
+	dirty = true;
 }
 
 /**/
-PongObject::PongObject(int hieghtIn, int widthIn, Position currentIn, Position previousIn, Position velocityIn, bool ballIndicatorIn) {
+PongObject::PongObject(int hieghtIn, int widthIn, Position currentIn, Position previousIn, Position velocityIn, bool ballIndicatorIn, bool dirtyIn) {
 	height = hieghtIn;
 	width = widthIn;
 	current = currentIn;
 	previous = previousIn;
 	velocity = velocityIn;
 	ballIndicator = ballIndicatorIn;
+	dirty = dirtyIn;
 }
 
 /***ACESSOR METHODS***/
@@ -39,6 +41,8 @@ int PongObject::getWidth() { return width; }
 
 bool PongObject::isBall() { return ballIndicator; }
 
+bool PongObject::isDirty() { return dirty; }
+
 /***SETTER METHODS***/
 void PongObject::setCurrent(Position value) { current = value; }
 void PongObject::setPrevious(Position value) { previous = value; }
@@ -48,6 +52,8 @@ void PongObject::setHeight(int value) { height = value; }
 void PongObject::setWidth(int value) { width = value; }
 
 void PongObject::setBall(bool value) { ballIndicator = value; }
+
+void PongObject::setDirty(bool value) { dirty = value; }
 
 /***HELPER METHODS***/
 
@@ -101,9 +107,10 @@ void PongObject::draw(HDC console, float lag) {
 }
 
 void PongObject::render(HDC console, float lag) {
-	if (hasMoved(lag)) {
+	if (hasMoved(lag) || isDirty()) {
 		erase(console);
 		draw(console, lag);
+		setDirty(false);
 	}
 }
 
