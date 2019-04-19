@@ -19,10 +19,6 @@ Input playerInput();
 
 void update(PongTable& table);
 
-void collisionCheck(PongTable& table);
-
-
-
 bool inPlayerInput(PongTable& table);
 
 int main()
@@ -253,51 +249,8 @@ void update(PongTable& table)
 
 	ball->setCurrent(current);
 
-	// call to collisionCheck funtion
-	collisionCheck(table);
+	// call to collisions funtion
+	table.collisions();
 
 	return;
 }
-
-/***************************************************************
-* checks for collisions with the boarder and reverses velocity
-*
-* @param {PongObject} location - location and velocity of
-* the ball (in/out)
-****************************************************************/
-void collisionCheck(PongTable& table)
-{
-
-	PongObject *ball = table.getBall();
-
-	Position current = ball->getCurrent();
-	Position velocity = ball->getVelocity();
-
-	// check for collision with walls
-	if (current.xValue <= 0)
-	{
-		current.xValue = 0;
-		velocity.xValue *= -1;
-	}
-	else if (current.xValue >= SCREEN_WIDTH)
-	{
-		current.xValue = SCREEN_WIDTH - BALL_WIDTH - 1;
-		velocity.xValue *= -1;
-	}
-
-	if (current.yValue <= 0)
-	{
-		current.yValue = 0;
-		velocity.yValue *= -1;
-	}
-	else if (current.yValue >= SCREEN_HEIGHT)
-	{
-		current.yValue = SCREEN_HEIGHT - BALL_HEIGHT - 1;
-		velocity.yValue *= -1;
-	}
-	ball->setVelocity(velocity);
-	ball->setCurrent(current);
-
-	return;
-}
-

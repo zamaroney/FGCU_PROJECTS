@@ -79,4 +79,28 @@ void PongTable::collisions() {
 	Position ballCurrent = ball.getCurrent();
 	Position ballVelocity = ball.getVelocity();
 
+	//ball with left wall
+	if (ball.intersects(&leftWall)) {
+		ballCurrent.xValue = leftWall.getCurrent().xValue + leftWall.getWidth() + 1;
+		ballVelocity.xValue *= -1;
+	}
+	//ball with right wall
+	else if (ball.intersects(&rightWall)) {
+		ballCurrent.xValue = rightWall.getCurrent().xValue - ball.getWidth() - 1;
+		ballVelocity.xValue *= -1;
+	}
+
+	//ball with top wall
+	if (ball.intersects(&topWall)) {
+		ballCurrent.yValue = topWall.getCurrent().yValue + topWall.getHeight() + 1;
+		ballVelocity.yValue *= -1;
+	}
+	//ball with bottom wall
+	else if (ball.intersects(&bottomWall)) {
+		ballCurrent.yValue = bottomWall.getCurrent().yValue - ball.getHeight() - 1;
+		ballVelocity.yValue *= -1;
+	}
+
+	ball.setCurrent(ballCurrent);
+	ball.setVelocity(ballVelocity);
 }

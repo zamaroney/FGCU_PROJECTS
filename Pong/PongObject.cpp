@@ -113,12 +113,12 @@ bool PongObject::intersects(PongObject* other) {
 	float thisLeft = current.xValue;
 	float thisRight = current.xValue + width;
 	float otherTop = other->getCurrent().yValue;
-	float otherBottom = other->getCurrent().yValue + other->getHeight;
+	float otherBottom = other->getCurrent().yValue + other->getHeight();
 	float otherLeft = other->getCurrent().xValue;
-	float otherRight = other->getCurrent().xValue + other->getWidth;
+	float otherRight = other->getCurrent().xValue + other->getWidth();
 
 	return !(otherLeft > thisRight
 		|| otherRight < thisLeft
-		|| otherTop < thisBottom
+		|| otherTop > thisBottom
 		|| otherBottom < thisTop);
 }

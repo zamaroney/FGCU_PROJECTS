@@ -1,13 +1,6 @@
-﻿  pong.cpp
-C:\Users\Armeg\OneDrive - Florida Gulf Coast University\Spring 2019\COP 2001\Projects - Labs\Pong\pong.cpp(71): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-  PongObject.cpp
-C:\Users\Armeg\OneDrive - Florida Gulf Coast University\Spring 2019\COP 2001\Projects - Labs\Pong\PongObject.cpp(68): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Armeg\OneDrive - Florida Gulf Coast University\Spring 2019\COP 2001\Projects - Labs\Pong\PongObject.cpp(69): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Armeg\OneDrive - Florida Gulf Coast University\Spring 2019\COP 2001\Projects - Labs\Pong\PongObject.cpp(84): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Armeg\OneDrive - Florida Gulf Coast University\Spring 2019\COP 2001\Projects - Labs\Pong\PongObject.cpp(85): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Armeg\OneDrive - Florida Gulf Coast University\Spring 2019\COP 2001\Projects - Labs\Pong\PongObject.cpp(116): error C3867: 'PongObject::getHeight': non-standard syntax; use '&' to create a pointer to member
-C:\Users\Armeg\OneDrive - Florida Gulf Coast University\Spring 2019\COP 2001\Projects - Labs\Pong\PongObject.cpp(116): error C2297: '+': illegal, right operand has type 'int (__cdecl PongObject::* )(void)'
-C:\Users\Armeg\OneDrive - Florida Gulf Coast University\Spring 2019\COP 2001\Projects - Labs\Pong\PongObject.cpp(118): error C3867: 'PongObject::getWidth': non-standard syntax; use '&' to create a pointer to member
-C:\Users\Armeg\OneDrive - Florida Gulf Coast University\Spring 2019\COP 2001\Projects - Labs\Pong\PongObject.cpp(118): error C2297: '+': illegal, right operand has type 'int (__cdecl PongObject::* )(void)'
-  PongTable.cpp
-  Generating Code...
+﻿  PongObject.cpp
+c:\users\armeg\onedrive - florida gulf coast university\git\pong\pongobject.cpp(68): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\armeg\onedrive - florida gulf coast university\git\pong\pongobject.cpp(69): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\armeg\onedrive - florida gulf coast university\git\pong\pongobject.cpp(84): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\armeg\onedrive - florida gulf coast university\git\pong\pongobject.cpp(85): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Pong.vcxproj -> C:\Users\Armeg\OneDrive - Florida Gulf Coast University\Git\Pong\x64\Debug\Pong.exe
