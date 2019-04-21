@@ -11,39 +11,45 @@ PongTable::PongTable() {
 	Position ballCurrent = { BALL_START_X, BALL_START_Y };
 	Position ballPrevious = { 0, 0 };
 	Position ballVelocity= { BALL_START_VEL_X, BALL_START_VEL_Y };
-	ball = PongObject(BALL_HEIGHT, BALL_WIDTH, ballCurrent, ballPrevious, ballVelocity, true, true);
+	ball = PongObject(BALL_HEIGHT, BALL_WIDTH, ballCurrent, ballPrevious, ballVelocity, true);
 
 	// top wall
 	int topHeight = WALL_THICKNESS;
 	int topWidth = SCREEN_WIDTH - (2 * SCREEN_OFFSET);
 	Position topCurrent = { SCREEN_OFFSET, SCREEN_OFFSET };
 	Position topPrevious = { 0, 0 };
-	Position topVelocity = { 0,0 };
-	topWall = PongObject(topHeight, topWidth, topCurrent, topPrevious, topVelocity, false, true);
+	Position topVelocity = { 0, 0 };
+	topWall = PongObject(topHeight, topWidth, topCurrent, topPrevious, topVelocity, false);
 
 	// bottom wall
 	int bottomHeight = WALL_THICKNESS;
 	int bottomWidth = SCREEN_WIDTH - (2 * SCREEN_OFFSET);
 	Position bottomCurrent = { SCREEN_OFFSET, SCREEN_HEIGHT - SCREEN_OFFSET - WALL_THICKNESS };
 	Position bottomPrevious = { 0, 0 };
-	Position bottomVelocity = { 0,0 };
-	bottomWall = PongObject(bottomHeight, bottomWidth, bottomCurrent, bottomPrevious, bottomVelocity, false, true);
+	Position bottomVelocity = { 0, 0 };
+	bottomWall = PongObject(bottomHeight, bottomWidth, bottomCurrent, bottomPrevious, bottomVelocity, false);
 
 	// left wall
 	int leftHeight = SCREEN_HEIGHT - (2 * SCREEN_OFFSET);
 	int leftWidth = WALL_THICKNESS;
 	Position leftCurrent = { SCREEN_OFFSET, SCREEN_OFFSET };
 	Position leftPrevious = { 0, 0 };
-	Position leftVelocity = { 0,0 };	
-	leftWall = PongObject(leftHeight, leftWidth, leftCurrent, leftPrevious, leftVelocity, false, true);
+	Position leftVelocity = { 0, 0 };	
+	leftWall = PongObject(leftHeight, leftWidth, leftCurrent, leftPrevious, leftVelocity, false);
 
 	// right wall
 	int rightHeight = SCREEN_HEIGHT - (2 * SCREEN_OFFSET);
 	int rightWidth = WALL_THICKNESS;
 	Position rightCurrent = { SCREEN_WIDTH - SCREEN_OFFSET - WALL_THICKNESS, SCREEN_OFFSET };
 	Position rightPrevious = { 0, 0 };
-	Position rightVelocity = { 0,0 };
-	rightWall = PongObject(rightHeight, rightWidth, rightCurrent, rightPrevious, rightVelocity, false, true);
+	Position rightVelocity = { 0, 0 };
+	rightWall = PongObject(rightHeight, rightWidth, rightCurrent, rightPrevious, rightVelocity, false);
+
+	// AI paddle
+	Position aiPaddlePos;
+	aiPaddlePos.xValue = rightWall.getCurrent().xValue - PADDLE_OFFSET - PADDLE_WIDTH;
+	aiPaddlePos.yValue = (SCREEN_HEIGHT / 2) - (PADDLE_HEIGHT / 2);
+	computerPaddle = PongObject(PADDLE_HEIGHT, PADDLE_WIDTH, aiPaddlePos, { 0, 0 }, { 0, 0 }, false);
 }
 
 PongObject* PongTable::getBall() { return &ball; }
@@ -56,9 +62,14 @@ PongObject* PongTable::getLeftWall() { return &leftWall; }
 
 PongObject* PongTable::getRightWall() { return &rightWall; }
 
+PongObject* PongTable::getComputerPaddle() { return &computerPaddle; }
+
 void PongTable::render(HDC console, float lag) {
 	//draw the ball
 	ball.render(console, lag);
+
+	//draw AI Paddle
+	computerPaddle.render(console, lag);
 
 	//draw bottom wall
 	bottomWall.render(console, 0);
@@ -71,7 +82,6 @@ void PongTable::render(HDC console, float lag) {
 
 	//draw right wall
 	rightWall.render(console, 0);
-
 }
 
 // checks for collisions of the ball with the walls

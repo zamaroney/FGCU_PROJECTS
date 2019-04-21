@@ -15,7 +15,7 @@ class PongObject {
 public:
 	PongObject();
 
-	PongObject(int heightIn, int widthIn, Position currentIn, Position previousIn, Position velocityIn, bool ballIndicatorIn, bool dirtyIn);
+	PongObject(int heightIn, int widthIn, Position currentIn, Position previousIn, Position velocityIn, bool ballIndicatorIn);
 
 	Position getCurrent();
 	Position getPrevious();

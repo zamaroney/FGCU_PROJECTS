@@ -75,7 +75,7 @@ int main()
 			deltaTime -= FRAME_RATE;
 		}
 
-		// call to draw funtion
+		// call to render funtion
 		table.render(hdc, (deltaTime / FRAME_RATE));
 	}
 

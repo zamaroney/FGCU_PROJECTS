@@ -21,14 +21,14 @@ PongObject::PongObject() {
 }
 
 /**/
-PongObject::PongObject(int hieghtIn, int widthIn, Position currentIn, Position previousIn, Position velocityIn, bool ballIndicatorIn, bool dirtyIn) {
+PongObject::PongObject(int hieghtIn, int widthIn, Position currentIn, Position previousIn, Position velocityIn, bool ballIndicatorIn) {
 	height = hieghtIn;
 	width = widthIn;
 	current = currentIn;
 	previous = previousIn;
 	velocity = velocityIn;
 	ballIndicator = ballIndicatorIn;
-	dirty = dirtyIn;
+	dirty = true;
 }
 
 /***ACESSOR METHODS***/

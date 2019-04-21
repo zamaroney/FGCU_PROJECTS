@@ -30,6 +30,8 @@ public:
 
 	void collisions();
 
+	PongObject* getComputerPaddle();
+
 private:
 
 	PongObject ball;
@@ -41,6 +43,9 @@ private:
 	PongObject leftWall;
 
 	PongObject rightWall;
+
+	PongObject computerPaddle;
+
 };
 
 #endif // ends the ifndef PONGTABLE_H

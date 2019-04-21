@@ -1,6 +1,5 @@
-﻿  PongObject.cpp
-c:\users\armeg\onedrive - florida gulf coast university\git\pong\pongobject.cpp(74): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\armeg\onedrive - florida gulf coast university\git\pong\pongobject.cpp(75): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\armeg\onedrive - florida gulf coast university\git\pong\pongobject.cpp(90): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\armeg\onedrive - florida gulf coast university\git\pong\pongobject.cpp(91): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+﻿  PongTable.cpp
+  pong.cpp
+c:\users\armeg\onedrive - florida gulf coast university\git\pong\pong.cpp(67): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
   Pong.vcxproj -> C:\Users\Armeg\OneDrive - Florida Gulf Coast University\Git\Pong\x64\Debug\Pong.exe
