@@ -34,6 +34,8 @@ public:
 
 	void moveComputerPaddle();
 
+	PongObject* getPlayerPaddle();
+
 private:
 
 	PongObject ball;
@@ -47,6 +49,8 @@ private:
 	PongObject rightWall;
 
 	PongObject computerPaddle;
+
+	PongObject playerPaddle;
 };
 
 #endif // ends the ifndef PONGTABLE_H

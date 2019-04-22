@@ -48,8 +48,14 @@ PongTable::PongTable() {
 	// camputer paddle
 	Position aiPaddlePos;
 	aiPaddlePos.xValue = rightWall.getCurrent().xValue - PADDLE_OFFSET - PADDLE_WIDTH;
-	aiPaddlePos.yValue = (SCREEN_HEIGHT / 2) - (PADDLE_HEIGHT /2);
+	aiPaddlePos.yValue = (SCREEN_HEIGHT / 2) - (PADDLE_HEIGHT / 2);
 	computerPaddle = PongObject(PADDLE_HEIGHT, PADDLE_WIDTH, aiPaddlePos, { 0, 0 }, { 0, 0 }, false);
+
+	// player paddle
+	Position playerPaddlePos;
+	playerPaddlePos.xValue = leftWall.getCurrent().xValue + PADDLE_OFFSET + PADDLE_WIDTH;
+	playerPaddlePos.yValue = (SCREEN_HEIGHT / 2) - (PADDLE_HEIGHT / 2);
+	playerPaddle = PongObject(PADDLE_HEIGHT, PADDLE_WIDTH, playerPaddlePos, { 0, 0 }, { 0, 0 }, false);
 }
 
 PongObject* PongTable::getBall() { return &ball; }
@@ -64,12 +70,17 @@ PongObject* PongTable::getRightWall() { return &rightWall; }
 
 PongObject* PongTable::getComputerPaddle() { return &computerPaddle; }
 
+PongObject* PongTable::getPlayerPaddle() { return &playerPaddle; }
+
 void PongTable::render(HDC console, float lag) {
 	//draw the ball
 	ball.render(console, lag);
 
 	//draw the computer paddle
 	computerPaddle.render(console, lag);
+
+	//draw the player's paddle
+	playerPaddle.render(console, lag);
 
 	//draw bottom wall
 	bottomWall.render(console, 0);
@@ -90,8 +101,15 @@ void PongTable::collisions() {
 	Position ballCurrent = ball.getCurrent();
 	Position ballVelocity = ball.getVelocity();
 
+	// ball collides with computer paddle
 	if (ball.intersects(&computerPaddle)) {
 		ballCurrent.xValue = computerPaddle.getCurrent().xValue - ball.getWidth() - 1;
+		ballVelocity.xValue *= -1;
+		computerPaddle.setDirty(true);
+	}
+	// ball collides with player's paddle
+	else if (ball.intersects(&playerPaddle)) {
+		ballCurrent.xValue = playerPaddle.getCurrent().xValue + ball.getWidth() + 1;
 		ballVelocity.xValue *= -1;
 		computerPaddle.setDirty(true);
 	}
@@ -122,6 +140,42 @@ void PongTable::collisions() {
 
 	ball.setCurrent(ballCurrent);
 	ball.setVelocity(ballVelocity);
+
+	//collision check for the Computer paddle and the walls
+	Position computerPaddleCurrent = computerPaddle.getCurrent();
+	Position computerPaddleVelocity = computerPaddle.getVelocity();
+
+	if (computerPaddle.intersects(&topWall)) {
+		computerPaddleCurrent.yValue = topWall.getCurrent().yValue + topWall.getHeight() + 1;
+		computerPaddleVelocity.yValue = 0.0;
+		topWall.setDirty(true);
+	}
+	else if (computerPaddle.intersects(&bottomWall)) {
+		computerPaddleCurrent.yValue = bottomWall.getCurrent().yValue - PADDLE_HEIGHT - 1;
+		computerPaddleVelocity.yValue = 0.0;
+		bottomWall.setDirty(true);
+	}
+
+	computerPaddle.setCurrent(computerPaddleCurrent);
+	computerPaddle.setVelocity(computerPaddleVelocity);
+
+	//collision check for the Player's paddle and the walls
+	Position playerPaddleCurrent = playerPaddle.getCurrent();
+	Position playerPaddleVelocity = playerPaddle.getVelocity();
+
+	if (playerPaddle.intersects(&topWall)) {
+		playerPaddleCurrent.yValue = topWall.getCurrent().yValue + topWall.getHeight() + 1;
+		playerPaddleVelocity.yValue = 0.0;
+		topWall.setDirty(true);
+	}
+	else if (playerPaddle.intersects(&bottomWall)) {
+		playerPaddleCurrent.yValue = bottomWall.getCurrent().yValue - PADDLE_HEIGHT - 1;
+		playerPaddleVelocity.yValue = 0.0;
+		bottomWall.setDirty(true);
+	}
+
+	playerPaddle.setCurrent(playerPaddleCurrent);
+	playerPaddle.setVelocity(playerPaddleVelocity);
 }
 
 // moves the paddle of the AI
@@ -132,6 +186,8 @@ void PongTable::moveComputerPaddle() {
 
 	float paddleTop = computerPaddleCurrent.yValue;
 	float paddleBottom = paddleTop + computerPaddleCurrent.yValue;
+	paddleTop += PADDLE_HEIGHT / 3;
+	paddleBottom -= PADDLE_HEIGHT / 3;
 	float ballTop = ballCurrent.yValue;
 	float ballBottom = ballTop + ballCurrent.yValue;
 

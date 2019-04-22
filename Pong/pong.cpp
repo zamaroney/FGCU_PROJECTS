@@ -196,7 +196,7 @@ Input playerInput()
 }
 
 /***************************************************************
-* Calls playerInput and adjust the ball's velocity
+* Calls playerInput and adjust the player's paddles velocity
 * @param {PongObject} location - current location and
 * velocity of ball (in/out)
 * return quit - if true then it quits the program
@@ -204,28 +204,32 @@ Input playerInput()
 bool inPlayerInput(PongTable& table) {
 	bool quit = false;
 
-	PongObject *ball = table.getBall();
+	PongObject *playerPaddle = table.getPlayerPaddle();
 
-	Position velocity = ball->getVelocity();
+	Position paddleVelocity = playerPaddle->getVelocity();
 
 	// get user input
 	Input input = playerInput();
 
 	switch (input)
 	{
-	case UP: velocity.yValue -= .25;
+	case UP: 
+		//if (paddleVelocity.yValue > 0) { paddleVelocity.yValue = 0.0; } // resets velocity for easier control
+			paddleVelocity.yValue -= .2;
 		break;
-	case DOWN: velocity.yValue += .25;
+	case DOWN: 		
+		//if (paddleVelocity.yValue < 0) { paddleVelocity.yValue = 0.0; } // resets velocity for easier control
+			paddleVelocity.yValue += .2;
 		break;
-	case LEFT: velocity.xValue -= .25;
+	/*case LEFT: velocity.xValue -= .25;
 		break;
 	case RIGHT: velocity.xValue += .25;
 		break;
 	case QUIT: quit = true;
-		break;
+		break;*/
 	}
 
-	ball->setVelocity(velocity);
+	playerPaddle->setVelocity(paddleVelocity);
 
 	// call to MoveComputer Paddle
 	table.moveComputerPaddle();
@@ -243,12 +247,16 @@ void update(PongTable& table)
 	
 	PongObject *ball = table.getBall();
 	PongObject *computerPaddle = table.getComputerPaddle();
+	PongObject *playerPaddle = table.getPlayerPaddle();
 
 	Position ballCurrent = ball->getCurrent();
 	Position ballVelocity = ball->getVelocity();
 
 	Position computerPaddleCurrent = computerPaddle->getCurrent();
-	Position computerPaddleVelocity = computerPaddle->getCurrent();
+	Position computerPaddleVelocity = computerPaddle->getVelocity();
+
+	Position playerPaddleCurrent = playerPaddle->getCurrent();
+	Position playerPaddleVelocity = playerPaddle->getVelocity();
 
 	// Add or subtract velocity from ball X/y pos
 	ballCurrent.xValue += ballVelocity.xValue;
@@ -260,6 +268,11 @@ void update(PongTable& table)
 	computerPaddleCurrent.yValue += computerPaddleVelocity.yValue;
 
 	computerPaddle->setCurrent(computerPaddleCurrent);
+
+	// updates the location of player's paddle
+	playerPaddleCurrent.yValue += playerPaddleVelocity.yValue;
+
+	playerPaddle->setCurrent(playerPaddleCurrent);
 
 
 	// call to collisions funtion
