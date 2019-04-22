@@ -28,7 +28,7 @@ public:
 
 	void render(HDC console, float lag);
 
-	void collisions();
+	bool collisions();
 
 	PongObject* getComputerPaddle();
 

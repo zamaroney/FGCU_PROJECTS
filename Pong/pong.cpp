@@ -17,7 +17,7 @@ HDC initConsole();
 
 Input playerInput();
 
-void update(PongTable& table);
+bool update(PongTable& table);
 
 bool inPlayerInput(PongTable& table);
 
@@ -52,7 +52,7 @@ int main()
 	// call to draw function
 	table.render(hdc, 0);
 
-	bool quit = false;
+	bool quit = update(table);
 
 	// player input
 	while (!quit)	// not exit
@@ -70,7 +70,7 @@ int main()
 
 		while (deltaTime >= FRAME_RATE) {
 
-			update(table);
+			quit = update(table);
 
 			deltaTime -= FRAME_RATE;
 		}
@@ -224,9 +224,9 @@ bool inPlayerInput(PongTable& table) {
 	/*case LEFT: velocity.xValue -= .25;
 		break;
 	case RIGHT: velocity.xValue += .25;
-		break;
+		break; */
 	case QUIT: quit = true;
-		break;*/
+		break;
 	}
 
 	playerPaddle->setVelocity(paddleVelocity);
@@ -242,9 +242,10 @@ bool inPlayerInput(PongTable& table) {
 * @param {PongObject} location - current location and
 * velocity of ball (in/out)
 ****************************************************************/
-void update(PongTable& table)
+bool update(PongTable& table)
 {
-	
+	bool gameEnd = false;
+
 	PongObject *ball = table.getBall();
 	PongObject *computerPaddle = table.getComputerPaddle();
 	PongObject *playerPaddle = table.getPlayerPaddle();
@@ -276,7 +277,7 @@ void update(PongTable& table)
 
 
 	// call to collisions funtion
-	table.collisions();
+	gameEnd = table.collisions();
 
-	return;
+	return gameEnd;
 }

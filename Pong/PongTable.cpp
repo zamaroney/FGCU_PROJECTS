@@ -97,7 +97,9 @@ void PongTable::render(HDC console, float lag) {
 }
 
 // checks for collisions of the ball with the walls
-void PongTable::collisions() {
+bool PongTable::collisions() {
+	bool gameEnd = false;
+
 	Position ballCurrent = ball.getCurrent();
 	Position ballVelocity = ball.getVelocity();
 
@@ -118,12 +120,14 @@ void PongTable::collisions() {
 		ballCurrent.xValue = leftWall.getCurrent().xValue + leftWall.getWidth() + 1;
 		ballVelocity.xValue *= -1;
 		leftWall.setDirty(true);
+		gameEnd = true;
 	}
 	//ball with right wall
 	else if (ball.intersects(&rightWall)) {
 		ballCurrent.xValue = rightWall.getCurrent().xValue - ball.getWidth() - 1;
 		ballVelocity.xValue *= -1;
 		rightWall.setDirty(true);
+		gameEnd = true;
 	}
 	//ball with top wall
 	else if (ball.intersects(&topWall)) {
@@ -176,6 +180,8 @@ void PongTable::collisions() {
 
 	playerPaddle.setCurrent(playerPaddleCurrent);
 	playerPaddle.setVelocity(playerPaddleVelocity);
+
+	return gameEnd;
 }
 
 // moves the paddle of the AI
