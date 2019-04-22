@@ -1,5 +1,3 @@
-﻿  PongTable.cpp
-  pong.cpp
-c:\users\armeg\onedrive - florida gulf coast university\git\pong\pong.cpp(67): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
-  Pong.vcxproj -> C:\Users\Armeg\OneDrive - Florida Gulf Coast University\Git\Pong\x64\Debug\Pong.exe
+﻿  pong.cpp
+c:\users\zach\onedrive - florida gulf coast university\git\pong\pong.cpp(67): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  Pong.vcxproj -> C:\Users\Zach\OneDrive - Florida Gulf Coast University\Git\Pong\x64\Debug\Pong.exe

@@ -75,7 +75,7 @@ int main()
 			deltaTime -= FRAME_RATE;
 		}
 
-		// call to render funtion
+		// call to draw funtion
 		table.render(hdc, (deltaTime / FRAME_RATE));
 	}
 
@@ -227,6 +227,9 @@ bool inPlayerInput(PongTable& table) {
 
 	ball->setVelocity(velocity);
 
+	// call to MoveComputer Paddle
+	table.moveComputerPaddle();
+
 	return quit;
 }
 
@@ -239,15 +242,25 @@ void update(PongTable& table)
 {
 	
 	PongObject *ball = table.getBall();
+	PongObject *computerPaddle = table.getComputerPaddle();
 
-	Position current = ball->getCurrent();
-	Position velocity = ball->getVelocity();
+	Position ballCurrent = ball->getCurrent();
+	Position ballVelocity = ball->getVelocity();
 
-	// Add or subtract velocity from current X/y pos
-	current.xValue += velocity.xValue;
-	current.yValue += velocity.yValue;
+	Position computerPaddleCurrent = computerPaddle->getCurrent();
+	Position computerPaddleVelocity = computerPaddle->getCurrent();
 
-	ball->setCurrent(current);
+	// Add or subtract velocity from ball X/y pos
+	ballCurrent.xValue += ballVelocity.xValue;
+	ballCurrent.yValue += ballVelocity.yValue;
+
+	ball->setCurrent(ballCurrent);
+
+	// add or subtract velocity from computer paddle x/y
+	computerPaddleCurrent.yValue += computerPaddleVelocity.yValue;
+
+	computerPaddle->setCurrent(computerPaddleCurrent);
+
 
 	// call to collisions funtion
 	table.collisions();
