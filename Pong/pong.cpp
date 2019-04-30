@@ -214,18 +214,18 @@ bool inPlayerInput(PongTable& table) {
 	switch (input)
 	{
 	case UP: 
-		//if (paddleVelocity.yValue > 0) { paddleVelocity.yValue = 0.0; } // resets velocity for easier control
-			paddleVelocity.yValue -= .2;
+			paddleVelocity.yValue -= 1;
 		break;
 	case DOWN: 		
-		//if (paddleVelocity.yValue < 0) { paddleVelocity.yValue = 0.0; } // resets velocity for easier control
-			paddleVelocity.yValue += .2;
+		paddleVelocity.yValue += 1;
 		break;
 	/*case LEFT: velocity.xValue -= .25;
 		break;
 	case RIGHT: velocity.xValue += .25;
 		break; */
 	case QUIT: quit = true;
+		break;
+	case NONE:
 		break;
 	}
 
@@ -267,11 +267,21 @@ bool update(PongTable& table)
 
 	// add or subtract velocity from computer paddle x/y
 	computerPaddleCurrent.yValue += computerPaddleVelocity.yValue;
-
+	
 	computerPaddle->setCurrent(computerPaddleCurrent);
 
 	// updates the location of player's paddle
 	playerPaddleCurrent.yValue += playerPaddleVelocity.yValue;
+
+	// added this for extra credit to slow the player's paddld down to zero from what ever direction the paddle is going.
+	if (playerPaddleVelocity.yValue > 0.0) {
+		playerPaddleVelocity.yValue -= .06;
+		playerPaddle->setVelocity(playerPaddleVelocity);
+	}
+	else if (playerPaddleVelocity.yValue < 0.0) {
+		playerPaddleVelocity.yValue += .06;
+		playerPaddle->setVelocity(playerPaddleVelocity);
+	}
 
 	playerPaddle->setCurrent(playerPaddleCurrent);
 

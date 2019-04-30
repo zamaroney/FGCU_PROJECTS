@@ -51,6 +51,8 @@ private:
 	PongObject computerPaddle;
 
 	PongObject playerPaddle;
+
+	Position ballHitsPaddle(PongObject paddle);
 };
 
 #endif // ends the ifndef PONGTABLE_H

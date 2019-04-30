@@ -1,5 +1,6 @@
-﻿  pong.cpp
-c:\users\zach\onedrive - florida gulf coast university\git\pong\pong.cpp(67): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\zach\onedrive - florida gulf coast university\git\pong\pong.cpp(218): warning C4305: '-=': truncation from 'double' to 'float'
-c:\users\zach\onedrive - florida gulf coast university\git\pong\pong.cpp(222): warning C4305: '+=': truncation from 'double' to 'float'
+﻿  PongTable.cpp
+c:\users\zach\onedrive - florida gulf coast university\git\pong\pongtable.cpp(205): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\zach\onedrive - florida gulf coast university\git\pong\pongtable.cpp(208): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\zach\onedrive - florida gulf coast university\git\pong\pongtable.cpp(212): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\zach\onedrive - florida gulf coast university\git\pong\pongtable.cpp(215): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   Pong.vcxproj -> C:\Users\Zach\OneDrive - Florida Gulf Coast University\Git\Pong\x64\Debug\Pong.exe

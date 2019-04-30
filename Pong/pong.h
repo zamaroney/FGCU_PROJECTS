@@ -37,6 +37,9 @@ const int PADDLE_HEIGHT = 28;
 const int PADDLE_WIDTH = 2;
 const int PADDLE_OFFSET = 4;   // distance from the wall
 
+// max velocity of the computer paddle
+const int MAX_VELOCITY = 2;
+
 // ball dimension constant
 const int BALL_START_X = SCREEN_OFFSET + PADDLE_OFFSET + PADDLE_WIDTH + 10;
 const int BALL_START_Y = SCREEN_HEIGHT / 2 - 10;

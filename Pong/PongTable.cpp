@@ -112,6 +112,7 @@ bool PongTable::collisions() {
 	// ball collides with player's paddle
 	else if (ball.intersects(&playerPaddle)) {
 		ballCurrent.xValue = playerPaddle.getCurrent().xValue + ball.getWidth() + 1;
+		ballVelocity = ballHitsPaddle(playerPaddle);    // implements the trick shot to be able to beat the cpu
 		ballVelocity.xValue *= -1;
 		computerPaddle.setDirty(true);
 	}
@@ -129,8 +130,9 @@ bool PongTable::collisions() {
 		rightWall.setDirty(true);
 		gameEnd = true;
 	}
+
 	//ball with top wall
-	else if (ball.intersects(&topWall)) {
+	if (ball.intersects(&topWall)) {
 		ballCurrent.yValue = topWall.getCurrent().yValue + topWall.getHeight() + 1;
 		ballVelocity.yValue *= -1;
 		topWall.setDirty(true);
@@ -189,23 +191,97 @@ void PongTable::moveComputerPaddle() {
 	Position ballCurrent = ball.getCurrent();
 	Position computerPaddleCurrent = computerPaddle.getCurrent();
 	Position computerPaddleVelocity = computerPaddle.getVelocity();
+	int positiveMaxVel = MAX_VELOCITY;  // local int that is the max velocity, in the positive direction.
+	int negativeMaxVel = -1 * MAX_VELOCITY;  // local int that is the max velocity, in the negative direction.
 
 	float paddleTop = computerPaddleCurrent.yValue;
-	float paddleBottom = paddleTop + computerPaddleCurrent.yValue;
+	float paddleBottom = paddleTop + PADDLE_HEIGHT;
 	paddleTop += PADDLE_HEIGHT / 3;
 	paddleBottom -= PADDLE_HEIGHT / 3;
 	float ballTop = ballCurrent.yValue;
-	float ballBottom = ballTop + ballCurrent.yValue;
+	float ballBottom = ballTop + BALL_HEIGHT;
 
 	if (ballBottom < paddleTop) {
 		computerPaddleVelocity.yValue -= 0.02;
+		// corrects the velocity to not excede the maximum velocity, in the negative direction.
+		if (computerPaddleVelocity.yValue < negativeMaxVel) {
+			computerPaddleVelocity.yValue = negativeMaxVel;
+		}
 	}
 	else if (ballTop > paddleTop) {
 		computerPaddleVelocity.yValue += 0.02;
+		// corrects the velocity to not excede the maximum velocity, in the positve directions
+		if (computerPaddleVelocity.yValue > positiveMaxVel) {
+			computerPaddleVelocity.yValue = positiveMaxVel;
+		}
 	}
 	else {
 		computerPaddleVelocity.yValue = 0.0;
 	}
 
 	computerPaddle.setVelocity(computerPaddleVelocity);
+}
+
+//extra credit trick shot for when the ball hits the paddle
+Position PongTable::ballHitsPaddle(PongObject paddle) {
+	Position ballVelocity = ball.getVelocity();
+	
+	// defines when a ball is going up and left.
+	bool isUp = ballVelocity.yValue < 0;
+	bool isLeft = ballVelocity.xValue < 0;
+	
+	// local paddle top and bottom.
+	float paddleTop = paddle.getCurrent().yValue;
+	float paddleBottom = paddleTop + PADDLE_HEIGHT;
+	paddleTop += PADDLE_HEIGHT / 3;
+	paddleBottom -= PADDLE_HEIGHT / 3;
+
+	//call ball midpoint to test if its hitting top or bottom of paddle
+	float ballMidpoint = ball.getCurrent().yValue + BALL_HEIGHT / 2;
+
+	bool hitsTop = ballMidpoint > paddleTop;
+	bool hitsBottom = ballMidpoint < paddleBottom;
+
+	// ball hit top of paddle and is moving upwards
+	if (hitsTop && isUp) {
+		ballVelocity.yValue -= .5;
+		if (isLeft) {
+			ballVelocity.xValue -= .25;
+		}
+		else {
+			ballVelocity.xValue += .25;
+		}
+	}
+	// ball hits bottom and is moving upwards
+	else if (hitsBottom && isUp) {
+		ballVelocity.yValue += .25;
+		if (isLeft) {
+			ballVelocity.xValue += .25;
+		}
+		else {
+			ballVelocity.xValue -= .25;
+		}
+	}
+	// ball hits top wall and is moving downward
+	else if (hitsTop && !isUp) {
+		ballVelocity.yValue -= .25;
+		if (isLeft) {
+			ballVelocity.xValue += .25;
+		}
+		else {
+			ballVelocity.xValue -= .25;
+		}
+	}
+	// ball hits bottom and is moving downward
+	else if (hitsBottom && !isUp) {
+		ballVelocity.yValue += .5;
+		if (isLeft) {
+			ballVelocity.xValue -= .25;
+		}
+		else {
+			ballVelocity.xValue = +.25;
+		}
+	}
+	
+	return ballVelocity;
 }
